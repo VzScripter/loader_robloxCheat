@@ -1,1 +1,1 @@
-# Credits: Library: Kavo (Custom (in loader)), Scripts: Vz Scripter
+# Credits: Library: Kavo (Custom), Scripts: Vz Scripter
