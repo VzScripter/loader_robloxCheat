@@ -14,17 +14,18 @@ local luaMenusM = libraryVZ:NewTab('Lua Menus')
 local luaMenus = luaMenusM:NewSection('Lua Menus')
 
 local luaMenusTable = {
-    ['Monkey Hub (Lag in inject)'] = {'https://raw.githubusercontent.com/KuriWasTaken/MonkeHub/main/Loader.lua', false},
-    ['Diamond Hub'] = {'https://raw.githubusercontent.com/BloxiYT/Diamond/main/JailBreak', false},
+	{'CMD-X', 'https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source', false},
+	{'Diamond Hub', 'https://raw.githubusercontent.com/BloxiYT/Diamond/main/JailBreak', false},
+    {'Monkey Hub (Lag in inject)', 'https://raw.githubusercontent.com/KuriWasTaken/MonkeHub/main/Loader.lua', false},
 }
 
-for i, v in pairs(luaMenusTable) do
-    luaMenus:NewButton(i, 'Script externo "'..i..'"', function()
-        if not v[2] then
-            loadstring(game:HttpGet(v[1]))()
-            v[2] = true
+for i, v in ipairs(luaMenusTable) do
+    luaMenus:NewButton(v[1], 'Script externo "'..v[1]..'"', function()
+        if not v[3] then
+            loadstring(game:HttpGet(v[2]))()
+            v[3] = true
         else
-            GuiService:SetCore('SendNotification', {Title = 'Jailbreak Menu (VzScripter)', Text = 'O lua menu de "'..i..'" já foi injetado.'})
+            GuiService:SetCore('SendNotification', {Title = 'Jailbreak Menu (VzScripter)', Text = 'O lua menu de "'..v[1]..'" já foi injetado.'})
         end
     end)
 end
@@ -32,114 +33,86 @@ end
 local principalM = libraryVZ:NewTab('Principal')
 local principal = principalM:NewSection('Principal')
 
-function sFLY(vfly)
-	FLYING = false
-	speedofthefly = 1
-	speedofthevfly = 1
-	while not cmdlp or not cmdlp.Character or not cmdlp.Character:FindFirstChild('HumanoidRootPart') or not cmdlp.Character:FindFirstChild('Humanoid') or not cmdm do
-		 wait()
-	end 
-	local T = cmdlp.Character.HumanoidRootPart
-	local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-	local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-	local SPEED = 0
-	local function FLY()
-		FLYING = true
-		local BG = Instance.new('BodyGyro', T)
-		local BV = Instance.new('BodyVelocity', T)
-		BG.P = 9e4
-		BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-		BG.cframe = T.CFrame
-		BV.velocity = Vector3.new(0, 0, 0)
-		BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
-		spawn(function()
-			while FLYING do
-				if not vfly then
-					cmdlp.Character:FindFirstChild("Humanoid").PlatformStand = true
-				end
-				if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
-					SPEED = 50
-				elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
-					SPEED = 0
-				end
-				if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
-					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-					lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
-				elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
-					BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
-				else
-					BV.velocity = Vector3.new(0, 0, 0)
-				end
-				BG.cframe = workspace.CurrentCamera.CoordinateFrame
-				wait()
-			end
-			CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-			lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
-			SPEED = 0
-			BG:destroy()
-			BV:destroy()
-			cmdlp.Character.Humanoid.PlatformStand = false
-		end)
-	end
-	cmdm.KeyDown:connect(function(KEY)
-		if KEY:lower() == 'w' then
-			if vfly then
-				CONTROL.F = speedofthevfly
-			else
-				CONTROL.F = speedofthefly
-			end
-		elseif KEY:lower() == 's' then
-			if vfly then
-				CONTROL.B = - speedofthevfly
-			else
-				CONTROL.B = - speedofthefly
-			end
-		elseif KEY:lower() == 'a' then
-			if vfly then
-				CONTROL.L = - speedofthevfly
-			else
-				CONTROL.L = - speedofthefly
-			end
-		elseif KEY:lower() == 'd' then
-			if vfly then
-				CONTROL.R = speedofthevfly
-			else
-				CONTROL.R = speedofthefly
-			end
-		elseif KEY:lower() == 'y' then
-			if vfly then
-				CONTROL.Q = speedofthevfly*2
-			else
-				CONTROL.Q = speedofthefly*2
-			end
-		elseif KEY:lower() == 't' then
-			if vfly then
-				CONTROL.E = -speedofthevfly*2
-			else
-				CONTROL.E = -speedofthefly*2
-			end
-		end
-	end)
-	cmdm.KeyUp:connect(function(KEY)
-		if KEY:lower() == 'w' then
-			CONTROL.F = 0
-		elseif KEY:lower() == 's' then
-			CONTROL.B = 0
-		elseif KEY:lower() == 'a' then
-			CONTROL.L = 0
-		elseif KEY:lower() == 'd' then
-			CONTROL.R = 0
-		elseif KEY:lower() == 'y' then
-			CONTROL.Q = 0
-		elseif KEY:lower() == 't' then
-			CONTROL.E = 0
-		end
-	end)
-	FLY()
+local cmdp = game:GetService("Players")
+local cmdlp = cmdp.LocalPlayer
+
+function CreateN(xPlayer, xHead)
+	local ESP = Instance.new("BillboardGui", cmdlp.PlayerGui)
+	local ESPSquare = Instance.new("Frame", ESP)
+	local ESPText = Instance.new("TextLabel", ESP)
+	ESP.Name = "ESPN"..xPlayer.Name
+	ESP.Adornee = xHead
+	ESP.AlwaysOnTop = true
+	ESP.ExtentsOffset = Vector3.new(0, 1, 0)
+	ESP.Size = UDim2.new(0, 5, 0, 5)
+	ESPText.Name = "NAME"
+	ESPText.BackgroundColor3 = Color3.new(255, 255, 255)
+	ESPText.BackgroundTransparency = 1
+	ESPText.BorderSizePixel = 0
+	ESPText.Position = UDim2.new(0, 0, 0, -40)
+	ESPText.Size = UDim2.new(1, 0, 10, 0)
+	ESPText.Visible = true
+	ESPText.ZIndex = 10
+	ESPText.Font = Enum.Font.SourceSansSemibold
+	ESPText.TextStrokeTransparency = 0.6
+	ESPText.TextSize = 20
+	ESPText.Text = xPlayer.Name
+	ESPText.TextColor = xPlayer.TeamColor
 end
 
-principal:NewButton('Fly', 'Fly funcionando perfeitamente, unban.', function()
-     sFLY(not FLYING)
+function ClearN()
+	for _,v in pairs(cmdlp.PlayerGui:GetChildren()) do
+		if v.Name:sub(1,4) == "ESPN" and v:IsA("BillboardGui") then
+			v:Destroy()
+		end
+	end
+end
+
+function FindN()
+	ClearN()
+	TrackN = true
+	while wait() do
+		if TrackN then
+			ClearN()
+			for i, v in pairs(cmdp:GetPlayers()) do
+				if v ~= cmdlp and v.TeamColor ~= cmdlp.TeamColor then
+					if v.Character and v.Character:FindFirstChild("Head") then
+						CreateN(v, v.Character.Head, true)
+					end
+				end
+			end
+		end
+		wait(1)
+	end
+end
+
+local ESPNEnabled = false
+
+principal:NewButton('Esp Name', 'Esp Name funcionando perfeitamente, unban.', function()
+	if ESPNEnabled then
+		ESPNEnabled = false
+		wait(1)
+		ClearN()
+	else
+		ESPNEnabled = true
+		repeat
+			while wait() do
+				ClearN()
+				if ESPNEnabled then
+					for i,v in pairs(cmdp:GetPlayers()) do
+						if v ~= cmdlp then
+							if v.Character and v.Character:FindFirstChild("Head") then
+								CreateN(v, v.Character.Head, true)
+							end
+						end
+					end
+				end
+			end
+		until not ESPNEnabled
+	end
+end)
+
+principal:NewButton('Em breve..', 'Em Breve..', function()
 end)
 
 local veiculosM = libraryVZ:NewTab('Veiculos')
