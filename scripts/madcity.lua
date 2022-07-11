@@ -33,7 +33,7 @@ farm:NewButton('Dinheiro (Kick instantâneo)', 'Funcionando perfeitamente (10/07
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Cesare0328/my-scripts/main/shopv8.10115%20mc_bypass.lua', true))()
 end)
 
-farm:NewButton('XP (Reiniciar e quitar ao atingir o ranque desejado)', 'Funcionando perfeitamente (10/07/2022)', function()
+farm:NewButton('XP (Reiniciar e quitar ao atingir o ranque)', 'Funcionando perfeitamente (10/07/2022)', function()
     game:GetService('ReplicatedStorage').RemoteFunction:InvokeServer('SetTeam', 'Police')
     wait(.75)
     game:GetService('RunService').RenderStepped:Connect(function()
