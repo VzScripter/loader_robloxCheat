@@ -13,7 +13,9 @@ end)
 local luaMenusM = libraryVZ:NewTab('Lua Menus')
 local luaMenus = luaMenusM:NewSection('Lua Menus')
 
-local luaMenusTable = {}
+local luaMenusTable = {
+    {'Jay Hub', 'https://jack1214060.xyz/jayhub', false},
+}
 
 for i, v in ipairs(luaMenusTable) do
     luaMenus:NewButton(v[1], 'Script externo "'..v[1]..'"', function()
