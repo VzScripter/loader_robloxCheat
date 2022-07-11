@@ -1,5 +1,6 @@
 local chosenGame = ({
-    [606849621] = 'jailbreak.lua'
+    [606849621] = 'jailbreak.lua',
+    [1224212277] = 'madcity.lua'
 })[game.PlaceId]
 
 if chosenGame then
