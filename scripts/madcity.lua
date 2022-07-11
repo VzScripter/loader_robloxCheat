@@ -27,7 +27,7 @@ for i, v in ipairs(luaMenusTable) do
 end
 
 local farmM = libraryVZ:NewTab('Farm')
-local farm = luaMenusM:NewSection('Farm')
+local farm = farmM:NewSection('Farm')
 
 farm:NewButton('Dinheiro (Kick instantâneo)', 'Funcionando perfeitamente (10/07/2022)', function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Cesare0328/my-scripts/main/shopv8.10115%20mc_bypass.lua', true))()
