@@ -14,7 +14,7 @@ local luaMenusM = libraryVZ:NewTab('Lua Menus')
 local luaMenus = luaMenusM:NewSection('Lua Menus')
 
 local luaMenusTable = {
-    {'Jay Hub', 'https://jack1214060.xyz/jayhub', false},
+    {'Felipe Menu kkkkj', 'https://raw.githubusercontent.com/Cesare0328/my-scripts/main/shopv8.10113%20mc_bypass.lua', false},
 }
 
 for i, v in ipairs(luaMenusTable) do
